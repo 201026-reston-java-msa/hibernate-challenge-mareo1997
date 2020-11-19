@@ -30,7 +30,7 @@ public class MainClass {
 		//----------------------------------------------------------
 		
 		//hibernateCreateExample();
-		//hibernateReadExample();
+		hibernateReadExample();
 		hibernateReadAccount();
 		//getVsLoad();
 	}
@@ -56,10 +56,11 @@ public class MainClass {
 		
 		//Instantiate a Hibernate Dao
 		Dao dao = new BankDaoImpl();
-		
+		BankUser user = new BankUser(500, "jen","123", "generator", "values");
+
 		//Instantiate a BankUser Mapped to a Table, provide the primary key
-		BankAccount account = new BankAccount();
-		account.setBaNumber(1);
+		BankAccount account = new BankAccount(17,1000.0,user);
+//		account.setBaNumber(17);
 		
 		//Use the pojo to pull the record from the table
 		account = dao.getBankAccountById(account);
