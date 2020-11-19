@@ -19,7 +19,7 @@ public class BankDaoImpl implements Dao{
 		 */
 		Session session = HibernateConnectionUtil.getSession();
 		
-		BankUser returnedUser = (BankUser) session.get(BankUser.class, 1);
+		BankUser returnedUser = (BankUser) session.get(BankUser.class, user.getUserId());
 		
 		/*
 		 * 	calling a 2nd time with the same primary key will result in pulling the record from level 1 cache,
@@ -52,7 +52,7 @@ public class BankDaoImpl implements Dao{
 		//	The benefit of an object being in the persistent state,
 		//	Hibernate will compare the Java Object to the Table Record and update the table record
 		//	if the two don't match
-		user.setFirstName("I HAVE CHANGED!");
+		user.setFirstName("I HAVE CHANGED!");//
 		
 		//commit
 		tx.commit();
