@@ -1,7 +1,11 @@
 package com.revature.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,7 +28,7 @@ public class BankAccount {
 	 * 	What is the relationship between BankAccount to BankUser?
 	 * 		ManyToOne
 	 */
-	@ManyToOne
+	@ManyToOne (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="U_ID")
 	private BankUser bankUser;	
 	/*
@@ -57,6 +61,19 @@ public class BankAccount {
 	}
 
 	public void setBankUser(BankUser bankUser) {
+		this.bankUser = bankUser;
+	}
+
+	public BankAccount(int baNumber, double baBalance, BankUser bankUser) {
+		super();
+		this.baNumber = baNumber;
+		this.baBalance = baBalance;
+		this.bankUser = bankUser;
+	}
+
+	public BankAccount(double baBalance, BankUser bankUser) {
+		super();
+		this.baBalance = baBalance;
 		this.bankUser = bankUser;
 	}
 

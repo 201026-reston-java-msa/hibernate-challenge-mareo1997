@@ -8,40 +8,50 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="POKEMON")
+@Table(name = "POKEMON")
 public class Pokemon {
-	
+
 	@Id
-	@Column(name="P_ID")
+	@Column(name = "P_ID")
 	private int number;
-	
-	@Column(name="P_NAME", nullable = false, unique = true)
+
+	@Column(name = "P_NAME", nullable = false, unique = true)
 	private String name;
-	
+
 	/* By default eager */
 	@OneToOne
 	private PokemonType type;
-	
-	@OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Pokemon evolution;
-	
-	//By default is LAZY
+
+	// By default is LAZY
 	@ManyToMany(mappedBy = "pokemonOwned")
-	//@JoinTable(name="POKEMON_TRAINER")
+	//@JoinTable(name = "POKEMON_TRAINER")
 	private List<Trainer> trainersThatOwn;
 
-	public Pokemon() {}
-	
+	public Pokemon() {
+	}
+
 	public Pokemon(int number, String name, PokemonType type, Pokemon evolution) {
 		this.number = number;
 		this.name = name;
 		this.type = type;
 		this.evolution = evolution;
+	}
+
+	public Pokemon(String name, PokemonType type, Pokemon evolution, List<Trainer> trainersThatOwn) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.evolution = evolution;
+		this.trainersThatOwn = trainersThatOwn;
 	}
 
 	public int getNumber() {
